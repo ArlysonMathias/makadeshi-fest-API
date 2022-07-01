@@ -33,5 +33,5 @@ export class CreateFilmDto {
     example:
       'https://i.pinimg.com/originals/c8/fc/45/c8fc459217579657b56bd5defdc1ab84.png',
   })
-  url: string;
+  image: string;
 }

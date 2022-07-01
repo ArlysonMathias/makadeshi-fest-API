@@ -9,14 +9,6 @@ import * as bcrypt from 'bcryptjs';
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
-  }
-
-  findById(id: string): Promise<User> {
-    return this.prisma.user.findUnique({ where: { id } });
-  }
-
   create(dto: CreateUserDto): Promise<User> {
     const hashedPassword = bcrypt.hashSync(dto.password, 8);
 
@@ -26,6 +18,14 @@ export class UserService {
       password: hashedPassword,
     };
     return this.prisma.user.create({ data });
+  }
+
+  findAll(): Promise<User[]> {
+    return this.prisma.user.findMany();
+  }
+
+  findById(id: string): Promise<User> {
+    return this.prisma.user.findUnique({ where: { id } });
   }
 
   update(id: string, dto: UpdateUserDto) {
