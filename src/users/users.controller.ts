@@ -20,6 +20,14 @@ import { UserService } from './users.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Post()
+  @ApiOperation({
+    summary: 'Criar um usuário',
+  })
+  create(@Body() dto: CreateUserDto): Promise<User> {
+    return this.userService.create(dto);
+  }
+
   @Get()
   @ApiOperation({
     summary: 'Listar todos os usuários',
@@ -32,16 +40,8 @@ export class UserController {
   @ApiOperation({
     summary: 'Listar Usuário por ID',
   })
-  findById(@Param('id') id: string): Promise<User> {
-    return this.userService.findById(id);
-  }
-
-  @Post()
-  @ApiOperation({
-    summary: 'Criar um usuário',
-  })
-  create(@Body() dto: CreateUserDto): Promise<User> {
-    return this.userService.create(dto);
+  findOne(@Param('id') id: string): Promise<User> {
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
