@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
@@ -8,31 +12,62 @@ import { Film } from './entities/film.entity';
 export class FilmsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(dto: CreateFilmDto): Promise<Film> {
-    return this.prisma.film.create({ data: dto });
+  async create(dto: CreateFilmDto): Promise<Film> {
+    try {
+      return await this.prisma.film.create({ data: dto });
+    } catch (error) {
+      return this.handleError(error);
+    }
   }
 
   findAll(): Promise<Film[]> {
     return this.prisma.film.findMany();
   }
 
-  findOne(id: string): Promise<Film> {
+  async verifyFilmIdAndReturn(id: string): Promise<Film> {
+    const verifyId: Film = await this.prisma.film.findUnique({ where: { id } });
+    if (!verifyId) {
+      throw new NotFoundException(`Entrada do Id '${id}' não encontrado.`);
+    }
+    return verifyId;
+  }
+
+  async findOne(id: string): Promise<Film> {
+    await this.verifyFilmIdAndReturn(id);
+
     return this.prisma.film.findUnique({
       where: { id },
     });
   }
 
-  update(id: string, dto: UpdateFilmDto): Promise<Film> {
+  async update(id: string, dto: UpdateFilmDto): Promise<Film> {
+    await this.verifyFilmIdAndReturn(id);
     const data: Partial<Film> = { ...dto };
-    return this.prisma.film.update({
-      where: { id },
-      data,
-    });
+
+    try {
+      return await this.prisma.film.update({
+        where: { id },
+        data,
+      });
+    } catch (error) {
+      return this.handleError(error);
+    }
   }
 
-  delete(id: string) {
+  async delete(id: string) {
+    await this.verifyFilmIdAndReturn(id);
+
     return this.prisma.film.delete({
       where: { id },
     });
+  }
+
+  handleError(error: Error): undefined {
+    const errorLines = error.message?.split('\n');
+    const lastErrorLine = errorLines[errorLines.length - 1].trim();
+
+    throw new UnprocessableEntityException(
+      lastErrorLine || 'Algum erro ocorreu ao executar a operação',
+    );
   }
 }
