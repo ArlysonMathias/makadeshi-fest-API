@@ -15,6 +15,20 @@ model User {
   name String
   email String @unique
   password String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt  @map("updated_at")
+
+  @@map("user")
+}
+
+model Film {
+  id String @id @default(uuid())
+  name String @unique
+  description String
+  category String
+  image String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("film")
 }
