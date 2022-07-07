@@ -1,9 +1,6 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/handle-error-unique-util';
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { Film } from './entities/film.entity';
@@ -16,7 +13,7 @@ export class FilmsService {
     try {
       return await this.prisma.film.create({ data: dto });
     } catch (error) {
-      return this.handleError(error);
+      return handleError(error);
     }
   }
 
@@ -50,7 +47,7 @@ export class FilmsService {
         data,
       });
     } catch (error) {
-      return this.handleError(error);
+      return handleError(error);
     }
   }
 
@@ -60,14 +57,5 @@ export class FilmsService {
     return this.prisma.film.delete({
       where: { id },
     });
-  }
-
-  handleError(error: Error): undefined {
-    const errorLines = error.message?.split('\n');
-    const lastErrorLine = errorLines[errorLines.length - 1].trim();
-
-    throw new UnprocessableEntityException(
-      lastErrorLine || 'Algum erro ocorreu ao executar a operação',
-    );
   }
 }
