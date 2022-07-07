@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl, IsUUID } from 'class-validator';
 
 export class CreateFilmDto {
   @IsNotEmpty()
@@ -18,14 +18,6 @@ export class CreateFilmDto {
   })
   description: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty({
-    description: 'A categoria do filme',
-    example: 'Aventura',
-  })
-  category: string;
-
   @IsUrl()
   @IsString()
   @ApiProperty({
@@ -34,4 +26,11 @@ export class CreateFilmDto {
       'https://i.pinimg.com/originals/c8/fc/45/c8fc459217579657b56bd5defdc1ab84.png',
   })
   image: string;
+
+  @IsUUID()
+  @ApiProperty({
+    description: 'Id da categoria do filme',
+    example: '16e49805-3ca8-40bd-9695-9895371e1edy',
+  })
+  categoryId: string;
 }
