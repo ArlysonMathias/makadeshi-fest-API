@@ -25,10 +25,22 @@ model Film {
   id String @id @default(uuid())
   name String @unique
   description String
-  category String
   image String
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId String @map("category_id")
+
   @@map("film")
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String @unique
+
+  films Film[]
+
+  @@map ("category")
 }
