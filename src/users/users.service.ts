@@ -8,6 +8,13 @@ import { handleError } from 'src/utils/handle-error-unique-util';
 
 @Injectable()
 export class UserService {
+  private userSelect = {
+    id: true,
+    name: true,
+    email: true,
+    createdAt: true,
+    updatedAt: true,
+  };
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -19,18 +26,21 @@ export class UserService {
       password: hashedPassword,
     };
     try {
-      return await this.prisma.user.create({ data });
+      return await this.prisma.user.create({ data, select: this.userSelect });
     } catch (error) {
       return handleError(error);
     }
   }
 
   findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({ select: this.userSelect });
   }
 
   async verifyIdAndReturnUser(id: string): Promise<User> {
-    const user: User = await this.prisma.user.findUnique({ where: { id } });
+    const user: User = await this.prisma.user.findUnique({
+      where: { id },
+      select: this.userSelect,
+    });
     if (!user) {
       throw new NotFoundException(`Entrada do Id '${id}' não encontrado.`);
     }
@@ -49,6 +59,7 @@ export class UserService {
       return await this.prisma.user.update({
         where: { id },
         data: dto,
+        select: this.userSelect,
       });
     } catch (error) {
       return handleError(error);
@@ -57,8 +68,10 @@ export class UserService {
 
   async delete(id: string) {
     await this.verifyIdAndReturnUser(id);
+
     return this.prisma.user.delete({
       where: { id },
+      select: this.userSelect,
     });
   }
 }
