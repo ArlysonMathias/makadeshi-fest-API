@@ -18,6 +18,9 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt  @map("updated_at")
 
+  favorites Favorite[]
+
+
   @@map("user")
 }
 
@@ -33,6 +36,9 @@ model Film {
   category Category @relation(fields: [categoryId], references: [id])
   categoryId String @map("category_id")
 
+  favorites Favorite[]
+
+
   @@map("film")
 }
 
@@ -45,4 +51,19 @@ model Category {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map ("category")
+}
+
+model Favorite {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  //Relação com a model Users
+  user User @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  film Film @relation(fields: [filmName], references: [name])
+  filmName String @map("film_name")
+
+
+  @@map("favorite")
 }
