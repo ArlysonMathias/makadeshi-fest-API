@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error-unique-util';
 import { CreateFilmDto } from './dto/create-film.dto';
+import { FavoriteFilmDto } from './dto/favorite-film-dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { Film } from './entities/film.entity';
 
@@ -57,5 +58,9 @@ export class FilmsService {
     return this.prisma.film.delete({
       where: { id },
     });
+  }
+
+  favorite(id: string, dto: FavoriteFilmDto) {
+    return 'creating';
   }
 }
