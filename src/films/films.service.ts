@@ -1,10 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/users/entities/users.entities';
 import { handleError } from 'src/utils/handle-error-unique-util';
 import { CreateFilmDto } from './dto/create-film.dto';
-import { FavoriteFilmDto } from './dto/favorite-film-dto';
+import { FavoriteFilmDto } from '../favorities/dto/favorite-film-dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { Film } from './entities/film.entity';
+import { Favorite } from 'src/favorities/entity/favorite.entity';
 
 @Injectable()
 export class FilmsService {
@@ -60,7 +62,44 @@ export class FilmsService {
     });
   }
 
-  favorite(id: string, dto: FavoriteFilmDto) {
-    return 'creating';
+  // Favoritos
+
+  // Favoritar
+  async favorite(dto: FavoriteFilmDto): Promise<Favorite> {
+    const user: User = await this.prisma.user.findUnique({
+      where: { id: dto.userId },
+    });
+    if (!user) {
+      throw new NotFoundException(`Entrada de id ${dto.userId} não encontrado`);
+    }
+
+    const film: Film = await this.prisma.film.findUnique({
+      where: { name: dto.filmName },
+    });
+
+    if (!film) {
+      throw new NotFoundException(
+        `Filme de nome: ${dto.filmName} não encontrado`,
+      );
+    }
+
+    return this.prisma.favorite.create({ data: dto });
+  }
+
+  // Desfavoritar
+  async disfavor(id: string) {
+    await this.verifyFilmIdAndReturn(id);
+
+    return this.prisma.favorite.delete({ where: { id } });
+  }
+
+  // Listar usuários que gostam do filme
+  async findUsersLiked(id: string) {
+    const film: Film = await this.verifyFilmIdAndReturn(id);
+
+    return this.prisma.favorite.findMany({
+      where: { filmName: film.name },
+      select: { user: true },
+    });
   }
 }

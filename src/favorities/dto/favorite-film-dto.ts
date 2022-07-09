@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class FavoriteFilmDto {
   @IsUUID()
@@ -8,4 +8,12 @@ export class FavoriteFilmDto {
     example: 'f3f444cd-99b2-4ba8-a321-cb67ffba8b2e',
   })
   userId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'Nome do filme a ser favoritado',
+    example: 'A era do gelo',
+  })
+  filmName: string;
 }

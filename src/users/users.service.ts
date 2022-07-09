@@ -33,13 +33,18 @@ export class UserService {
   }
 
   findAll(): Promise<User[]> {
-    return this.prisma.user.findMany({ select: this.userSelect });
+    return this.prisma.user.findMany({
+      select: {
+        ...this.userSelect,
+        favorites: true,
+      },
+    });
   }
 
   async verifyIdAndReturnUser(id: string): Promise<User> {
     const user: User = await this.prisma.user.findUnique({
       where: { id },
-      select: this.userSelect,
+      select: { ...this.userSelect, favorites: true },
     });
     if (!user) {
       throw new NotFoundException(`Entrada do Id '${id}' não encontrado.`);
@@ -72,6 +77,15 @@ export class UserService {
     return this.prisma.user.delete({
       where: { id },
       select: this.userSelect,
+    });
+  }
+  // Find Favorites users films
+  async findFavoritesFilms(id: string) {
+    await this.verifyIdAndReturnUser(id);
+
+    return this.prisma.favorite.findMany({
+      where: { userId: id },
+      select: { filmName: true },
     });
   }
 }
