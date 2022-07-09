@@ -14,7 +14,8 @@ import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Film } from './entities/film.entity';
-import { FavoriteFilmDto } from './dto/favorite-film-dto';
+import { FavoriteFilmDto } from '../favorities/dto/favorite-film-dto';
+import { Favorite } from 'src/favorities/entity/favorite.entity';
 
 @ApiTags('films')
 @Controller('/films')
@@ -66,11 +67,28 @@ export class FilmsController {
   }
 
   //  Rota de favoritos
-  @Post(':id/favorite')
+
+  @Post('/favorite')
   @ApiOperation({
     summary: 'Favoritar produto',
   })
-  favorite(@Param('id') id: string, @Body() dto: FavoriteFilmDto) {
-    return this.filmsService.favorite(id, dto);
+  favorite(@Body() dto: FavoriteFilmDto): Promise<Favorite> {
+    return this.filmsService.favorite(dto);
+  }
+
+  @Get(':id/users-liked')
+  @ApiOperation({
+    summary: 'Pesquisar usuários que favoritaram este filme',
+  })
+  findUsersLiked(@Param('id') id: string) {
+    return this.filmsService.findUsersLiked(id);
+  }
+
+  @Delete('favorite/:id')
+  @ApiOperation({
+    summary: 'Desfavoritar um filme',
+  })
+  disfavor(@Param('id') id: string) {
+    return this.filmsService.disfavor(id);
   }
 }

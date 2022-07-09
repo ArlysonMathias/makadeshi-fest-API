@@ -10,6 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Favorite } from 'src/favorities/entity/favorite.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/users.entities';
@@ -59,5 +60,14 @@ export class UserController {
   })
   delete(@Param('id') id: string) {
     return this.userService.delete(id);
+  }
+
+  // Favoritos do Usuário
+  @Get(':id/favorites')
+  @ApiOperation({
+    summary: 'Lista de filmes favoritos de um usuário',
+  })
+  userFavoritesFilms(@Param('id') id: string): Promise<Favorite[]> {
+    return this.userService.findFavoritesFilms(id);
   }
 }

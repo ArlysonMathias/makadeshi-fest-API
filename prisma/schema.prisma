@@ -66,4 +66,5 @@ model Favorite {
 
 
   @@map("favorite")
+  @@unique([userId, filmName])
 }
