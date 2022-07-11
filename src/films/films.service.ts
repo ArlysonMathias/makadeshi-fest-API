@@ -7,6 +7,7 @@ import { FavoriteFilmDto } from '../favorities/dto/favorite-film-dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { Film } from './entities/film.entity';
 import { Favorite } from 'src/favorities/entity/favorite.entity';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class FilmsService {
@@ -83,7 +84,12 @@ export class FilmsService {
       );
     }
 
-    return this.prisma.favorite.create({ data: dto });
+    const data: Prisma.FavoriteCreateInput = {
+      user: { connect: { id: dto.userId } },
+      film: { connect: { name: dto.filmName } },
+    };
+
+    return this.prisma.favorite.create({ data });
   }
 
   // Desfavoritar
