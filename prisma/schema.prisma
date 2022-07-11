@@ -29,12 +29,13 @@ model Film {
   name String @unique
   description String
   image String
+  price Float
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  category Category @relation(fields: [categoryId], references: [id])
-  categoryId String @map("category_id")
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull )
+  categoryId String? @map("category_id")
 
   favorites Favorite[]
 
@@ -58,10 +59,10 @@ model Favorite {
   createdAt DateTime @default(now()) @map("created_at")
 
   //Relação com a model Users
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
 
-  film Film @relation(fields: [filmName], references: [name])
+  film Film @relation(fields: [filmName], references: [name], onDelete: Cascade)
   filmName String @map("film_name")
 
 
