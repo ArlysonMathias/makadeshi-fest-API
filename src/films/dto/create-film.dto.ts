@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString, IsUrl, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl, IsUUID } from 'class-validator';
 
 export class CreateFilmDto {
   @IsNotEmpty()
@@ -33,12 +33,4 @@ export class CreateFilmDto {
     example: '16e49805-3ca8-40bd-9695-9895371e1edy',
   })
   categoryId: string;
-
-  @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'O preço do filme',
-    example: '12.90',
-  })
-  price: number;
 }
