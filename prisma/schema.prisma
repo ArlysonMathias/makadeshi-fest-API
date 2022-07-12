@@ -20,6 +20,7 @@ model User {
 
   favorites Favorite[]
 
+  profiles Profile[]
 
   @@map("user")
 }
@@ -71,16 +72,19 @@ model Favorite {
   @@unique([userId, filmName])
 }
 
-model Perfil {
+model Profile {
   id String @id @default(uuid())
   image String
-  nickname String
+  nickname String @unique
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  user User @relation(fields: [userID], references: [id], onDelete: Cascade)
+  userID String @map("user_id")
 
-  @@map("perfil")
+
+  @@map("profile")
 }
 
 
