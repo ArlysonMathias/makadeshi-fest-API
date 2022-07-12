@@ -29,7 +29,7 @@ model Film {
   name String @unique
   description String
   image String
-  price Float
+
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -62,6 +62,7 @@ model Favorite {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
 
+  // Relação com a model de Films
   film Film @relation(fields: [filmName], references: [name], onDelete: Cascade)
   filmName String @map("film_name")
 
@@ -69,3 +70,17 @@ model Favorite {
   @@map("favorite")
   @@unique([userId, filmName])
 }
+
+model Perfil {
+  id String @id @default(uuid())
+  image String
+  nickname String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+
+  @@map("perfil")
+}
+
+
