@@ -1,6 +1,6 @@
 
 ## Description
-Project about company Makadeshi Events. This project is for educational purposes at the request BlueEdtech.
+Project about company nextFilms. This project is for educational purposes at the request BlueEdtech.
 
 ## How to clone?
 In your vsCode CLI, type the following command
