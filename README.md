@@ -1,6 +1,10 @@
 
 ## Description
-Project about company Makadeshi Events. This project is for educational purposes at the request BlueEdtech.
+Project about company nextFilms. This project is for educational purposes at the request BlueEdtech.
+
+## How to clone?
+In your vsCode CLI, type the following command
+git clone gh repo clone ArlysonMathias/nextFilms-API
 
 ## Installation
 
@@ -20,6 +24,12 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Database relationships
+
+For more details, open the image in the link below:
+
+https://i.ibb.co/yqkdw5y/relacionamento-db.png
+
 
 ## License
 
