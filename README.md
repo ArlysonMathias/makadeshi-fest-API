@@ -1,10 +1,9 @@
+# Next FIlms Api
+## Descrição
+ > Este projeto foi desenvolvido para fins educacionais. Neste
 
-## Description
-Project about company nextFilms. This project is for educational purposes at the request BlueEdtech.
+## Instalação
 
-## How to clone?
-In your vsCode CLI, type the following command
-git clone gh repo clone ArlysonMathias/nextFilms-API
 
 ## Installation
 
