@@ -13,10 +13,12 @@ async function bootstrap() {
     .setDescription('API da makadeshi fests')
     .setVersion('1.0.0')
     .addTag('status')
+    .addTag('auth')
     .addTag('users')
     .addTag('films')
     .addTag('categories')
     .addTag('profiles')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
