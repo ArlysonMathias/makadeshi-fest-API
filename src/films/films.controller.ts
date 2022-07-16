@@ -8,16 +8,20 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { FilmsService } from './films.service';
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Film } from './entities/film.entity';
 import { FavoriteFilmDto } from '../favorities/dto/favorite-film-dto';
 import { Favorite } from 'src/favorities/entity/favorite.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('films')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('/films')
 export class FilmsController {
   constructor(private readonly filmsService: FilmsService) {}
@@ -69,6 +73,7 @@ export class FilmsController {
   //  Rota de favoritos
 
   @Post('/favorite')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Favoritar produto',
   })
@@ -77,6 +82,7 @@ export class FilmsController {
   }
 
   @Get(':id/users-liked')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Pesquisar usuários que favoritaram este filme',
   })
@@ -85,6 +91,7 @@ export class FilmsController {
   }
 
   @Delete('favorite/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Desfavoritar um filme',
   })
