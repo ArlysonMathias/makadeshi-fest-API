@@ -8,8 +8,10 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Favorite } from 'src/favorities/entity/favorite.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -30,6 +32,8 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Listar todos os usuários',
   })
@@ -38,6 +42,8 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Listar Usuário por ID',
   })
@@ -46,6 +52,8 @@ export class UserController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Editar usuário pelo ID',
   })
@@ -54,6 +62,8 @@ export class UserController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Excluir usuário pelo ID',
@@ -64,6 +74,7 @@ export class UserController {
 
   // Favoritos do Usuário
   @Get(':id/favorites')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Lista de filmes favoritos de um usuário',
   })
