@@ -1,42 +1,76 @@
 # Next FIlms Api
 ## Descrição
- > Este projeto foi desenvolvido para fins educacionais. Neste
+ > Este projeto foi desenvolvido para fins educacionais com o intuito de aprender e trabalhar conceitos de Nestjs e Prisma.
+ > Tambem foram trabalhados nesse projeto, conceitos de autênticação com JWT, documentção do projeto, e banco de dados relacionais.
+
+
+## Pré-requisitos
+- **Node** com versão superior ou igual a 16.15.0
+- **NPM** com versão superior ou igual a 8.5.5
+- **Nest.js** com versão superior ou igual a 8.5.5
+- **PostgresSQL** com versão superior ou igual a 8.2.6
+
 
 ## Instalação
+Clone esse projeto em seu computador com o comando :
+```bash
+#!/bin/bash
+$ git clone https://github.com/ArlysonMathias/nextFilms-API.git
+```
 
-
-## Installation
+Acesse a pasta do projeto:
 
 ```bash
+#!/bin/bash
+$ cd (nome da pasta)
+```
+
+Instale as dependências com o seguinte comando:
+
+```bash
+#!/bin/bash
 $ npm install
 ```
 
-## Running the app
+## Execução
+
+Após ter instalado as dependências, use o seguinte comando para rodar o projeto em um servidor local:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
+#!/bin/bash
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
-## Database relationships
+Para conseguir trabalhar com o banco de dados você deverá criar um arquivo .env e adicionar uma url de conexão com seu Postgres local com a chave DATABASE_URL.
 
-For more details, open the image in the link below:
+```md
+DATABASE_URL="postgresql://postgres:101112@localhost:5432/hamburgueria"
+```
 
-https://i.ibb.co/yqkdw5y/relacionamento-db.png
+```md
+DATABASE_URL="postgresql://postgres:ma010101@localhost:5432/nextFilms"
+```
+
+## Funcionalidades
+
+Para acessar a lista de endpoints e funcionalidades da aplicação, acesse nossa documentação do [Swagger](https://blue-hamburgueria-production.up.railway.app/docs/), lá você poderá testar todas as rotas.
+
+Você também pode analisar nosso <a href="https://i.ibb.co/yqkdw5y/relacionamento-db.png">Diagrama de Relacionamento de Entidades</a>
+
+## Autor
+
+- Arlyson Mathias
+
+## Contribuição
+
+Sinta-se a vontade para entrar em contato comigo caso tenha qualquer sugestão de melhoria no projeto
+
+<div>
+<a href="https://www.linkedin.com/in/arlyson-teixeira/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+<a href="https://instagram.com/arlysonmathias" target="_blank"><img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white" target="_blank"></a>
+<a href = "mailto:arlysonmathias96@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+</div>
 
 
-## License
+## Licença
 
-Nest is [MIT licensed](LICENSE).
-
-
-## Stay touch
-
-- Author - [Arlyson Mathias]
-- Github - [https://github.com/ArlysonMathias]
-
+- MIT License (MIT)
