@@ -14,8 +14,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
-    .setTitle('Makadeshi Fests')
-    .setDescription('API da makadeshi fests')
+    .setTitle('Next Films')
+    .setDescription('API Next Films')
     .setVersion('1.0.0')
     .addTag('status')
     .addTag('auth')
