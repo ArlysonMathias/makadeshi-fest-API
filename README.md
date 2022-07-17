@@ -52,7 +52,7 @@ DATABASE_URL="postgresql://postgres:ma010101@localhost:5432/nextFilms"
 
 ## Funcionalidades
 
-Para acessar a lista de endpoints e funcionalidades da aplicação, acesse nossa documentação do [Swagger](https://blue-hamburgueria-production.up.railway.app/docs/), lá você poderá testar todas as rotas.
+Para acessar a lista de endpoints e funcionalidades da aplicação, acesse nossa documentação do [Swagger](https://nextfilms-api-production.up.railway.app/docs/), lá você poderá testar todas as rotas.
 
 Você também pode analisar nosso <a href="https://i.ibb.co/yqkdw5y/relacionamento-db.png">Diagrama de Relacionamento de Entidades</a>
 
