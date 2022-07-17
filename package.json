@@ -1,7 +1,7 @@
 {
-  "name": "makadeshi-fest",
+  "name": "next-films",
   "version": "0.0.1",
-  "description": "Makadeshi eventos",
+  "description": "Api da NextFilms",
   "author": "Arlyson Mathias",
   "private": true,
   "license": "UNLICENSED",
